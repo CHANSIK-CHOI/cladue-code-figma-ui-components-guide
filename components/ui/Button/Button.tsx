@@ -1,13 +1,13 @@
+import { forwardRef } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 // ─── Variants 정의 ─────────────────────────────────────────────────────────────
 
 const buttonVariants = cva(
-  // 공통 기본 클래스
   [
     'flex w-full items-center justify-center gap-1.5',
-    'rounded-[8px]',
+    'rounded-[10px]',
     'transition-colors duration-150',
     'cursor-pointer select-none',
     'disabled:cursor-not-allowed disabled:opacity-50',
@@ -15,37 +15,36 @@ const buttonVariants = cva(
   ],
   {
     variants: {
-      // 색상/스타일 variant
       variant: {
-        // 주요 액션 (Primary blue)
+        // Figma: 1depth_Ful/Bottom_button=Primary
         primary: [
           'bg-primary-dark text-white',
           'hover:bg-primary-main',
           'active:bg-primary-dark',
           'disabled:bg-gray-line2 disabled:text-gray-5',
         ],
-        // 보조 액션 (연한 파란 배경 + 파란 텍스트)
+        // Figma: 1depth_Ful/Bottom_button=Variant4 (bg accent-sky-blue + primary text)
         secondary: [
-          'bg-accent-light-blue text-primary-dark',
-          'hover:bg-accent-sky-blue',
+          'bg-accent-sky-blue text-primary-dark',
+          'hover:bg-accent-light-blue',
           'active:bg-accent-sky-blue',
           'disabled:bg-gray-line3 disabled:text-gray-5',
         ],
-        // 테두리형 (Primary 색상 테두리)
+        // Figma: 1depth_Ful/Bottom_button=Outline (1.5px border, primary-main 색상)
         outline: [
-          'bg-white text-primary-dark border border-primary-dark',
+          'bg-white text-primary-dark border-[1.5px] border-primary-main',
           'hover:bg-accent-light-blue',
           'active:bg-accent-sky-blue',
           'disabled:bg-white disabled:text-gray-5 disabled:border-gray-line2',
         ],
-        // 텍스트형 (배경 없음)
+        // 디자이너 누락 — gray 계열 일관성: 배경 없는 3차 액션
         ghost: [
           'bg-transparent text-gray-2',
           'hover:bg-gray-bg1',
           'active:bg-gray-bg2',
           'disabled:text-gray-5',
         ],
-        // 위험 액션 (Red)
+        // 디자이너 누락 — accent-red 토큰 기반 파괴적 액션, Primary 구조 동일
         danger: [
           'bg-accent-red text-white',
           'hover:opacity-90',
@@ -53,11 +52,10 @@ const buttonVariants = cva(
           'disabled:bg-gray-line2 disabled:text-gray-5',
         ],
       },
-      // 크기 variant
       size: {
         sm: 'h-8 px-3 text-caption1',
-        md: 'h-10 px-4 text-body3-medium',
-        lg: 'h-12 px-6 text-body2',
+        md: 'h-10 px-4 text-body3-bold',
+        lg: 'h-[52px] px-6 text-h5',
       },
     },
     defaultVariants: {
@@ -113,37 +111,24 @@ export interface ButtonProps
 
 // ─── Button 컴포넌트 ────────────────────────────────────────────────────────────
 
-export function Button({
-  label,
-  leftIcon,
-  rightIcon,
-  loading = false,
-  disabled,
-  variant,
-  size,
-  className,
-  children,
-  ...props
-}: ButtonProps) {
-  const isDisabled = disabled || loading;
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ label, leftIcon, rightIcon, loading = false, disabled, variant, size, className, children, ...props }, ref) => {
+    const isDisabled = disabled || loading;
 
-  return (
-    <button
-      className={cn(buttonVariants({ variant, size }), className)}
-      disabled={isDisabled}
-      aria-disabled={isDisabled}
-      {...props}
-    >
-      {/* 로딩 중이면 스피너, 아니면 leftIcon */}
-      {loading ? <LoadingSpinner /> : leftIcon}
-
-      {/* label 또는 children */}
-      {label ?? children}
-
-      {/* 오른쪽 아이콘 (로딩 중엔 숨김) */}
-      {!loading && rightIcon}
-    </button>
-  );
-}
+    return (
+      <button
+        ref={ref}
+        className={cn(buttonVariants({ variant, size }), className)}
+        disabled={isDisabled}
+        {...props}
+      >
+        {loading ? <LoadingSpinner /> : leftIcon}
+        {label ?? children}
+        {!loading && rightIcon}
+      </button>
+    );
+  }
+);
+Button.displayName = 'Button';
 
 export { buttonVariants };

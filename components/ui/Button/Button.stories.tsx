@@ -47,7 +47,7 @@ const meta: Meta<typeof Button> = {
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: '버튼 크기 (sm: 32px / md: 40px / lg: 48px)',
+      description: '버튼 크기 (sm: 32px / md: 40px / lg: 52px)',
       table: {
         defaultValue: { summary: 'md' },
       },
@@ -141,13 +141,13 @@ export const AllSizes: Story = {
     <div className="flex flex-col gap-3">
       <Button label="Small (32px)" size="sm" />
       <Button label="Medium (40px)" size="md" />
-      <Button label="Large (48px)" size="lg" />
+      <Button label="Large (52px)" size="lg" />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'sm(32px) / md(40px) / lg(48px) 세 가지 크기를 비교합니다. 버튼은 항상 부모 너비를 채웁니다.',
+        story: 'sm(32px) / md(40px) / lg(52px) 세 가지 크기를 비교합니다. lg는 Figma 1depth_Ful/Bottom_button 기준.',
       },
     },
   },
