@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__figma-remote-mcp",
+      "mcp__context7",
+      "mcp__figma"
+    ],
+    "defaultMode": "plan"
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "context7"
+  ],
+  "disabledMcpjsonServers": [
+    "figma-remote-mcp"
+  ]
+}
