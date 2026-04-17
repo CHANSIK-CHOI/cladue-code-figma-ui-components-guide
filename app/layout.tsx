@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "드시네몰 리뉴얼 2차 디자인 시스템",
-  description: "드시네몰 리뉴얼 2차 컴포넌트 가이드",
+  title: "Claude Code를 활용한 UI 컴포넌트 스토리북",
+  description: "Claude Code를 활용한 UI 컴포넌트 스토리북",
 };
 
 export default function RootLayout({
